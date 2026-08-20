@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-tele-query
+  labels:
+    app: axion-tele-query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ax-tele-query
+
+  template:
+    metadata:
+      name: deply-tele-query-pod
+      labels:
+        app: ax-tele-query
+    spec:
+      containers:
+        - name: tele-query-pod
+          image: acrimageashu.azurecr.io/axion-telemetry-query-service:v1
+          ports:
+          - containerPort: 8000

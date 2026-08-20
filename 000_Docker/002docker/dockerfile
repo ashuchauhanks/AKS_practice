@@ -1,0 +1,20 @@
+#!/bin/bash
+IMAGE_NAME="streamflix:v1"
+START_PORT=8081
+CONTAINER_COUNT=20
+
+for i in $(seq 1 $CONTAINER_COUNT)
+do
+  CONTAINER_NAME="streamflixv1-$i"
+  HOST_PORT=$((START_PORT + i - 1))
+
+sudo docker run -d \
+    --name $CONTAINER_NAME \
+    -p $HOST_PORT:80 \
+    $IMAGE_NAME
+docker cp /home/ashuvm/StreamFlix/. ${CONTAINER_NAME}:/usr/share/nginx/html/
+
+  echo "Container $CONTAINER_NAME running on port $HOST_PORT"
+done
+
+echo "All containers are up and running!"

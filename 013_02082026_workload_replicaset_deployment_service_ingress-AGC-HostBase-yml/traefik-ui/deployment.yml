@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-ui-deploy
+  namespace: dev-ns
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: traefik
+
+
+  template:
+    metadata:
+      name: traefik-pod
+      labels:
+        app: traefik
+
+    spec:
+      containers:
+      - name: traefik
+        image: traefik/whoami:v1.10.3
+        ports:
+        - containerPort: 80
+          protocol: TCP
+
+
+
+    

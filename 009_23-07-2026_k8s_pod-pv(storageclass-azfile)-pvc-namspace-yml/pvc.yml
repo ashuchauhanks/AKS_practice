@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azurefile-pvc1
+  namespace: dev-ns
+
+spec:
+  accessModes:
+    - ReadWriteMany # Azure File RWX support karta hai
+  storageClassName: my-azurefile-sc
+  resources:
+    requests:
+      storage: 5Gi
+
+
+---
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azurefile-pvc2
+  namespace: dev-ns
+
+spec:
+  accessModes:
+    - ReadWriteMany # Azure File RWX support karta hai
+  storageClassName: my-azurefile-sc
+  resources:
+    requests:
+      storage: 6Gi

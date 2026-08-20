@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-ingestion
+  labels:
+    app: axion-ingestion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ax-ingestion
+
+  template:
+    metadata:
+      name: deply-ingestion-pod
+      labels:
+        app: ax-ingestion
+    spec:
+      containers:
+        - name: ingestion-pod
+          image: acrimageashu.azurecr.io/axion-ingestion-service:v1
+          ports:
+          - containerPort: 8000

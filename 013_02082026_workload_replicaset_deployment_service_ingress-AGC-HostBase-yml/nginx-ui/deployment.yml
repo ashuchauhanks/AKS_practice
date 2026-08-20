@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ui-deploy
+  namespace: dev-ns
+  labels:
+    type: nginx-deployment
+
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+
+  revisionHistoryLimit: 2
+
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginx-ui-pod
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginximage
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+
+      # resources:
+      #   requests:
+      #     cpu:
+      #     memory:
+
+      #   limits:
+      #     cpu:
+      #     memory:
+
+        
+    

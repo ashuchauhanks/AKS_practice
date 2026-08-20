@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-ui-service
+  namespace: flipkart-dev
+  labels:
+    app: app1-ui
+    component: frontend
+    environment: dev
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+
+spec:
+  selector:
+    app: app1-ui-pod-dev
+  type: ClusterIP  # enum: ClusterIP, ExternalName, LoadBalancer, NodePort
+  ports:
+  - name: app1-ui-svctopod
+    port: 8080
+    targetPort: 5800
+

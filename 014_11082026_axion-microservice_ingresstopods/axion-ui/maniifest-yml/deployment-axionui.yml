@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-ui
+  labels:
+    app: axion-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ax-ui
+
+  template:
+    metadata:
+      name: deply-ui-pod
+      labels:
+        app: ax-ui
+    spec:
+      containers:
+        - name: ui-pod
+          image: acrimageashu.azurecr.io/axion-ui:v1
+          ports:
+          - containerPort: 8000

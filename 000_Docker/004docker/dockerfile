@@ -1,0 +1,37 @@
+FROM node:16.20.0-alpine
+
+# Install git + nginx
+RUN apk add --no-cache git nginx
+
+# Set working directory
+WORKDIR /app
+
+# Clone GitHub repo into container
+RUN git clone https://github.com/devopsinsiders/MicroTodoUI.git .
+
+# Install dependencies
+RUN npm install
+
+# Build React app
+RUN npm run build
+
+# Remove default nginx content
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy build files to nginx directory
+RUN cp -r build/. /usr/share/nginx/html/
+
+RUN rm -f /etc/nginx/http.d/default.conf
+
+RUN printf "server {\n\
+    listen 80;\n\
+    root /usr/share/nginx/html;\n\
+    index index.html;\n\
+    location / {\n\
+        try_files \$uri /index.html;\n\
+    }\n\
+}\n" > /etc/nginx/http.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
