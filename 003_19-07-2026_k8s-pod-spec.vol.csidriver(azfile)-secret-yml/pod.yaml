@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  namespace: dev-ns
+  labels:
+    app: pod-afcsi
+spec:
+  containers:
+  - name: cont1-ng
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: azurefile-vol
+      mountPath: "/mnt/azure" 
+  
+
+  volumes:
+  - name: azurefile-vol
+    csi:
+      driver: file.csi.azure.com
+      nodePublishSecretRef:
+        name: azure-secret1
+      volumeAttributes:
+        shareName: azfileashu
+        secretName: azure-secret1
+    
+  
+
+
+
+
+
+
+
+    
+    # env:
+    # - name: AZURE_STORAGE_ACCOUNT_NAME
+    #   value: "devopsstorageacc"
+    # - name: AZURE_STORAGE_ACCOUNT_KEY
+    #   value: "devopsstoragekey"
+    # - name: AZURE_STORAGE_ACCOUNT_SHARE_NAME
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: azure-secret
+    #       key: share-name
+    # - name: AZURE_STORAGE_ACCOUNT_SHARE_MOUNT_PATH
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: azure-config
+    #       key: share-mount-path

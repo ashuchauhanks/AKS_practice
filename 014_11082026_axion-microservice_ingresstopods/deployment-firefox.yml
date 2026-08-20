@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefox
+  labels:
+    app: firefox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: firefox-app
+  template:
+    metadata:
+      labels:
+        app: firefox-app
+    spec:
+      containers:
+        - name: firefox-c1
+          image: jlesage/firefox:latest
+          ports:
+            - containerPort: 5800

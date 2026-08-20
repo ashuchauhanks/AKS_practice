@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deploy
+  labels:
+    app: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+        - name: database-c1
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "admin"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+            - name: POSTGRES_DB
+              value: "axion-db"
+
+
+          # volumeMounts:
+          #   - name: database-storage
+          #     mountPath: /var/lib/postgresql/data
+      # volumes:
+      #   - name: database-storage
+      #     persistentVolumeClaim:
+      #       claimName: database-pvc

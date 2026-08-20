@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azuredisk-pvc1
+  namespace: dev-ns
+
+spec:
+  accessModes:
+    - ReadWriteOnce # Azure File RWX support karta hai
+  storageClassName: sc-azuredisk-csi-waitforfirstconsumer
+  resources:
+    requests:
+      storage: 10Gi
+
+
+---
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azuredisk-pvc2
+  namespace: dev-ns
+
+spec:
+  accessModes:
+    - ReadWriteOnce # Azure disk only supports ReadWriteOnce (RWO) access mode
+  storageClassName: sc-azuredisk-csi-waitforfirstconsumer
+  resources:
+    requests:
+      storage: 6Gi

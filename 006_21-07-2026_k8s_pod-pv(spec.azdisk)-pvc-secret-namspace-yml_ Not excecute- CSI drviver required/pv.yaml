@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume  # static PV volume created by admin
+metadata:
+  name: azure-disk-pv  # name of the PV
+  namespace: nginx-ns1  # namespace of the PV
+spec:
+  capacity:
+    storage: 50Gi  # size of the PV
+  accessModes:
+    - ReadWriteOnce # access mode of the PV
+  persistentVolumeReclaimPolicy: Retain  # reclaim policy of the PV , reclaim policy can be Retain, Recycle or Delete
+  storageClassName: ""  # storage class name of the PV , if not specified then default storage class will be used, its type can be standard, premium or managed
+  
+  azureDisk:
+    # kind: Managed  # type of the azure disk, it can be Managed or Unmanaged
+    diskName: azdiskashu  # name of the azure disk
+    diskURI: https://ashu-rgforaks.blob.core.windows.net/azdiskashu  # URI of the azure disk
+    fsType: ext4  # file system type of the azure disk, it can be ext4, xfs or ntfs
+
+
+#/subscriptions/0ae5ab6b-cbab-4b15-82a7-6ef0998daef7/resourcegroups/ashu-rgforaks/providers/Microsoft.Compute/disks/azdiskashu

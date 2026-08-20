@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-simulator
+  labels:
+    app: axion-simulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ax-simulator
+
+  template:
+    metadata:
+      name: deply-simulator-pod
+      labels:
+        app: ax-simulator
+    spec:
+      containers:
+        - name: simulator-pod
+          image: acrimageashu.azurecr.io/axion-data-simulator:v1 
+          ports:
+          - containerPort: 8000

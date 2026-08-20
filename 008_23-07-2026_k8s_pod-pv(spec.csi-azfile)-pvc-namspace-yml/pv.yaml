@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azure-file-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  csi:
+    driver: file.csi.azure.com
+    volumeHandle: "/subscriptions/0ae5ab6b-cbab-4b15-82a7-6ef0998daef7/resourceGroups/ashu-rgforaks/providers/Microsoft.Storage/storageAccounts/ashujiostg/fileServices/default/shares/azfileashu"
+    volumeAttributes:
+      shareName: azfileashu
+      storageAccount: ashujiostg
+      resourceGroup: ashu-rgforaks

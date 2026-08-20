@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: front-replicaset # specifies the name of the ReplicaSet
+  
+  labels:
+    app: jioapp
+    tier: frontend # provides a label to identify the ReplicaSet
+spec:
+  replicas: 3  # specifies the desired number of pod replicas
+  selector:
+    matchLabels:  # specifies how the ReplicaSet finds which Pods to manage
+      tier: frontend # specifies the label that the ReplicaSet uses to identify the Pods it manages
+  template: # specifies the pod template used to create new pods
+    metadata:
+      labels:
+        tier: frontend # specifies the label that will be applied to the pods created by the ReplicaSet
+    spec:
+      containers:
+      # - name: php-redis
+      #   image: us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5
+      - name: ngnixcontainer
+        image: nginx:latest
+        ports:
+        - containerPort: 80

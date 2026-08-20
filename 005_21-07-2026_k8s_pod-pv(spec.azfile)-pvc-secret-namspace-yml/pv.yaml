@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume  # static PV volume created by admin
+metadata:
+  name: azure-file-pv # name of the PV
+  namespace: nginx-ns1  # namespace of the PV
+spec:
+  capacity:
+    storage: 50Gi  # size of the PV
+  accessModes:
+    - ReadWriteMany  # access mode of the PV
+  persistentVolumeReclaimPolicy: Retain  # reclaim policy of the PV , reclaim policy can be Retain, Recycle or Delete
+  storageClassName: ""  # storage class name of the PV , if not specified then default storage class will be used, its type can be standard, premium or managed
+  
+  azureFile:
+    secretName: azure-secret
+    shareName: azfileashu
+      
+
